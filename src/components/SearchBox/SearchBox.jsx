@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useId } from "react";
+import clsx from "clsx";
+import s from "./SearchBox.module.css";
 
-export default function SearchBox() {
-  const [inputValue, setInputValue] = useState();
+export default function SearchBox({ value, onFilter }) {
+  const inputId = useId();
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    onFilter(e.target.value);
   };
   return (
-    <div>
-      <p>Find contacts by name</p>
-      <input type="text" value={inputValue} onChange={handleChange} />
+    <div className={clsx(s.searchBox)}>
+      <label htmlFor={inputId}>Find contacts by name</label>
+      <input
+        id={inputId}
+        className={clsx(s.searchBoxInput)}
+        type="text"
+        value={value}
+        onChange={handleChange}
+      />
     </div>
   );
 }
